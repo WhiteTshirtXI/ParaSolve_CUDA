@@ -1,4 +1,4 @@
-## Fortran based Hybrid MPI-OpenMP Computational Physics Solver 
+## Fortran/C based Hybrid MPI-CUDA Computational Physics Solver 
 
 Execution instructions
 
