@@ -52,8 +52,8 @@ Defining Simulation Parameters - Block Size, Domain Length, etc
 #define MAX_STRING_LENGTH 80
 
 
-#define Nxb 100
-#define Nyb 100
+#define Nxb 20
+#define Nyb 20
 
 
 #define D_xmin -0.5

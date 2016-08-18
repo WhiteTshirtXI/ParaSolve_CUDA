@@ -1,28 +1,17 @@
-#MPI_PATH = /usr/local
-#MPI_PATH = /usr
-#MPI_PATH = /opt/mpich2-1.4.1p1/
-PGI_PATH = /opt/pgi/linux86-64/2016/mpi/openmpi
+MPI_PATH = /usr
+CUDA_PATH = /usr/local/cuda-7.0
 
-#MPIFF = $(MPI_PATH)/bin/mpif90
-#MPIFF = mpiifort
-#FF = ifort
-MPIFF = $(PGI_PATH)/bin/mpif90
+MPIFF = $(MPI_PATH)/bin/mpif90
+NVCC = $(CUDA_PATH)/bin/nvcc
 
-#FFLAGS = -c
-#FFLAGS = -fopenmp -c
-#FFLAGS = -qopenmp -c 
-#FFLAGS = -Mmpi=mpich -c
-FFLAGS = -Mcuda -mp -c
+CUDA_LIB = $(CUDA_PATH)/lib64
+CUDA_INC = $(CUDA_PATH)/include
 
-#EXEFLAGS = -o
+FFLAGS = -fopenmp -c
+CCFLAGS = -c
+
 #EXEFLAGS = -fopenmp -o
-#EXEFLAGS = -qopenmp -o
-#EXEFLAGS = -Mmpi=mpich -o
-EXEFLAGS = -Mcuda -mp -o
-
-
-#LIB_PATH = -L/opt/pgi/linux86-64/2016/cuda/8.0/lib64
-LIB_PATH =
+EXEFLAGS = -fopenmp -lcuda -lcudart -lgcc -o
 
 EXE = Solver
 
@@ -45,7 +34,7 @@ LINKER_OBJS = $(filter-out $(Modules),$(ALL_OBJS))
 
 
 $(EXE): $(ALL_OBJS) 
-	$(MPIFF) $(LIB_PATH) $(EXEFLAGS) $(EXE) $(LINKER_OBJS)
+	$(MPIFF) -L/$(CUDA_LIB)/ $(EXEFLAGS) $(EXE) $(LINKER_OBJS)
 
 
 #Poisson_solver.o: Poisson_solver.F90

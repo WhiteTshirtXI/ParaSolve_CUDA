@@ -31,7 +31,7 @@ subroutine Poisson_solver(ps_RHS,ps,ps_res,ps_counter,ps_quant)
 
   !DIR$ OFFLOAD BEGIN TARGET(mic) in(ps_old,gr_dy_centers,gr_dy_nodes,gr_dx_nodes,gr_dx_centers,ps_RHS,i,j,thread_id,ps_res1,ps_quant) inout(ps,ps_res,ps_counter)
 
-  !$OMP PARALLEL PRIVATE(i,j,thread_id) DEFAULT(NONE) NUM_THREADS(1) &
+  !$OMP PARALLEL PRIVATE(i,j,thread_id) DEFAULT(NONE) NUM_THREADS(2) &
   !$OMP SHARED(ps_old,gr_dy_centers,gr_dy_nodes,gr_dx_nodes,gr_dx_centers,ps_RHS,ps,ps_res,ps_counter,ps_res1,ps_quant)
 
   thread_id = OMP_GET_THREAD_NUM()
