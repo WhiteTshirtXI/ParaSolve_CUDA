@@ -116,4 +116,17 @@ Multiphase On/Off
 #define SINGLEPHASE
 #endif
 
+#if 0
+CUDA OPTIONS
+#endif
+
+#define CUDA_OPTIONS 1
+
+#if CUDA_OPTIONS == 0
+#define NVIDIA
+#endif
+
+#if CUDA_OPTIONS == 1
+#define PGI
+#endif
 

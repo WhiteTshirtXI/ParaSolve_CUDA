@@ -10,11 +10,11 @@ FFLAGS = -Mcuda -mp -c
 #EXEFLAGS = -L/$(CUDA_LIB)/ -fopenmp -lcuda -lcudart -lgcc -o
 EXEFLAGS = -Mcuda -mp -o
 
-#CUDA_PATH = /usr/local/cuda-7.0
-#NVCC = $(CUDA_PATH)/bin/nvcc
-#CUDA_LIB = $(CUDA_PATH)/lib64
-#CUDA_INC = $(CUDA_PATH)/include
-#CCFLAGS = -c
+CUDA_PATH = /usr/local/cuda-7.0
+NVCC = $(CUDA_PATH)/bin/nvcc
+CUDA_LIB = $(CUDA_PATH)/lib64
+CUDA_INC = $(CUDA_PATH)/include
+CCFLAGS = -c
 
 EXE = Solver
 

@@ -1,13 +1,16 @@
 subroutine Poisson_solver(ps_RHS,ps,ps_res,ps_counter,ps_quant)
 
+#include "Solver.h"
+
   !$ use omp_lib
   use Grid_data
   use MPI_data
   use MPI_interface, ONLY: MPI_applyBC, MPI_CollectResiduals, MPI_physicalBC_pres
-  use cudafor
 
-#include "Solver.h"
-                
+#ifdef PGI
+  use cudafor
+#endif
+              
   implicit none
 
   real*4, dimension(Nxb,Nyb), intent(in) :: ps_RHS
@@ -27,6 +30,7 @@ subroutine Poisson_solver(ps_RHS,ps,ps_res,ps_counter,ps_quant)
   integer*4, intent(out) :: ps_counter
   integer*4 :: i,j,thread_id
 
+#ifdef PGI
   real*4, dimension(Nxb+2,Nyb+2), device :: ps_d,ps_old_d,&
                                  gr_dx_centers_d,gr_dy_centers_d,&
                                  gr_dx_nodes_d,gr_dy_nodes_d
@@ -37,7 +41,7 @@ subroutine Poisson_solver(ps_RHS,ps,ps_res,ps_counter,ps_quant)
 
   tBlock = dim3(10,10,1)
   grid   = dim3(2,2,1)
-
+#endif
 
   ps_old = 0
   ps_counter = 0
@@ -66,6 +70,7 @@ subroutine Poisson_solver(ps_RHS,ps,ps_res,ps_counter,ps_quant)
 
 !_________USING PGI FORTRAN____________!
 
+#ifdef PGI
       ps_d = ps
       ps_old_d = ps_old
       ps_RHS_d = ps_RHS
@@ -77,7 +82,7 @@ subroutine Poisson_solver(ps_RHS,ps,ps_res,ps_counter,ps_quant)
       call CUDA_poisson<<<grid,tBlock>>>(ps_d,ps_old_d,ps_RHS_d,gr_dx_centers_d,gr_dy_centers_d,gr_dx_nodes_d,gr_dy_nodes_d)
 
       ps = ps_d
-
+#endif
 
 !_______WITHOUT PARALLELIZATION_______!
 
@@ -95,8 +100,10 @@ subroutine Poisson_solver(ps_RHS,ps,ps_res,ps_counter,ps_quant)
 
 
 !_________USING C WRAPPER____________!
-   
-!     call poisson_kernel_wrapper(ps,ps_old,gr_dx_centers,gr_dy_centers,gr_dx_nodes,gr_dy_nodes,ps_RHS) 
+
+#ifdef NVIDIA   
+     call poisson_kernel_wrapper(ps,ps_old,gr_dx_centers,gr_dy_centers,gr_dx_nodes,gr_dy_nodes,ps_RHS) 
+#endif
 
 #endif
 
