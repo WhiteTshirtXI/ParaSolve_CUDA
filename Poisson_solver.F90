@@ -41,6 +41,12 @@ subroutine Poisson_solver(ps_RHS,ps,ps_res,ps_counter,ps_quant)
 
   tBlock = dim3(10,10,1)
   grid   = dim3(2,2,1)
+
+  ps_RHS_d = ps_RHS
+  gr_dx_centers_d = gr_dx_centers
+  gr_dy_centers_d = gr_dy_centers
+  gr_dx_nodes_d = gr_dx_nodes
+  gr_dy_nodes_d = gr_dy_nodes
 #endif
 
   ps_old = 0
@@ -73,11 +79,6 @@ subroutine Poisson_solver(ps_RHS,ps,ps_res,ps_counter,ps_quant)
 #ifdef PGI
       ps_d = ps
       ps_old_d = ps_old
-      ps_RHS_d = ps_RHS
-      gr_dx_centers_d = gr_dx_centers
-      gr_dy_centers_d = gr_dy_centers
-      gr_dx_nodes_d = gr_dx_nodes
-      gr_dy_nodes_d = gr_dy_nodes
 
       call CUDA_poisson<<<grid,tBlock>>>(ps_d,ps_old_d,ps_RHS_d,gr_dx_centers_d,gr_dy_centers_d,gr_dx_nodes_d,gr_dy_nodes_d)
 
