@@ -15,8 +15,8 @@ __global__ void solve_poisson(float ps[Nxb+2][Nyb+2],float ps_old[Nxb+2][Nyb+2],
 {
    int i,j;
 
-   j = (blockIdx.x * blockDim.x) + threadIdx.x;
-   i = (blockIdx.y * blockDim.y) + threadIdx.y;
+   i = (blockIdx.x * blockDim.x) + threadIdx.x;
+   j = (blockIdx.y * blockDim.y) + threadIdx.y;
 
   if(i>=1 && i<=Nxb && j>=1 && j<=Nyb) 
 

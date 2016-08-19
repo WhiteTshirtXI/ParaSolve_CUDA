@@ -4,6 +4,7 @@ subroutine Poisson_solver(ps_RHS,ps,ps_res,ps_counter,ps_quant)
   use Grid_data
   use MPI_data
   use MPI_interface, ONLY: MPI_applyBC, MPI_CollectResiduals, MPI_physicalBC_pres
+  use cudafor
 
 #include "Solver.h"
                 
@@ -25,6 +26,18 @@ subroutine Poisson_solver(ps_RHS,ps,ps_res,ps_counter,ps_quant)
 
   integer*4, intent(out) :: ps_counter
   integer*4 :: i,j,thread_id
+
+  real*4, dimension(Nxb+2,Nyb+2), device :: ps_d,ps_old_d,&
+                                 gr_dx_centers_d,gr_dy_centers_d,&
+                                 gr_dx_nodes_d,gr_dy_nodes_d
+
+  real*4, dimension(Nxb,Nyb), device :: ps_RHS_d
+
+  type(dim3) :: grid, tBlock
+
+  tBlock = dim3(10,10,1)
+  grid   = dim3(2,2,1)
+
 
   ps_old = 0
   ps_counter = 0
@@ -50,6 +63,24 @@ subroutine Poisson_solver(ps_RHS,ps,ps_res,ps_counter,ps_quant)
 
 #ifdef POISSON_SOLVER_GS
 
+
+!_________USING PGI FORTRAN____________!
+
+      ps_d = ps
+      ps_old_d = ps_old
+      ps_RHS_d = ps_RHS
+      gr_dx_centers_d = gr_dx_centers
+      gr_dy_centers_d = gr_dy_centers
+      gr_dx_nodes_d = gr_dx_nodes
+      gr_dy_nodes_d = gr_dy_nodes
+
+      call CUDA_poisson<<<grid,tBlock>>>(ps_d,ps_old_d,ps_RHS_d,gr_dx_centers_d,gr_dy_centers_d,gr_dx_nodes_d,gr_dy_nodes_d)
+
+      ps = ps_d
+
+
+!_______WITHOUT PARALLELIZATION_______!
+
 !     do j=2,Nyb+1
 !        do i=2,Nxb+1
 
@@ -63,7 +94,9 @@ subroutine Poisson_solver(ps_RHS,ps,ps_res,ps_counter,ps_quant)
 !     end do
 
 
-      call poisson_kernel_wrapper(ps,ps_old,gr_dx_centers,gr_dy_centers,gr_dx_nodes,gr_dy_nodes,ps_RHS) 
+!_________USING C WRAPPER____________!
+   
+!     call poisson_kernel_wrapper(ps,ps_old,gr_dx_centers,gr_dy_centers,gr_dx_nodes,gr_dy_nodes,ps_RHS) 
 
 #endif
 
