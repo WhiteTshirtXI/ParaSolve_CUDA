@@ -9,7 +9,7 @@ subroutine Grid_init()
      implicit none
 
      integer :: I
-     real :: pi=4.0*atan(1.0)
+     real*4 :: pi=4.0*atan(1.0)
 
      gr_Lx = (D_xmax)-(D_xmin)
      gr_Ly = (D_ymax)-(D_ymin)

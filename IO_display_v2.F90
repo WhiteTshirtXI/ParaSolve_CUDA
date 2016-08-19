@@ -7,8 +7,8 @@ subroutine IO_display_v2(simTime,solnX,T_res)
 
          implicit none
 
-         real, intent(in) :: simtime,T_res,solnX
-         real, pointer, dimension(:,:) :: df
+         real*4, intent(in) :: simtime,T_res,solnX
+         real*4, pointer, dimension(:,:) :: df
 
          df => ph_center(DFUN_VAR,:,:)
 

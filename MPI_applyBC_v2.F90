@@ -8,8 +8,8 @@ subroutine MPI_applyBC(u_ex)
 
        include "mpif.h"
 
-       real, dimension(Nxb+2,Nyb+2), intent(inout) :: u_ex
-       integer :: status(MPI_STATUS_SIZE)
+       real*4, dimension(Nxb+2,Nyb+2), intent(inout) :: u_ex
+       integer*4 :: status(MPI_STATUS_SIZE)
 
        call MPI_BARRIER(solver_comm, ierr)
 

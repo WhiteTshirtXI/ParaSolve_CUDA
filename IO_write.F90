@@ -3,8 +3,8 @@ subroutine IO_write(x,y,uu,vv,pp,tt,id)
 #include "Solver.h"
 
        implicit none
-       real, dimension(Nxb+1, Nyb+1), intent(in) :: x,y,uu,vv,pp,tt
-       integer, intent(in) :: id
+       real*4, dimension(Nxb+1, Nyb+1), intent(in) :: x,y,uu,vv,pp,tt
+       integer*4, intent(in) :: id
        character(len=10) :: f1,f2,f3,f4,f5,f7
      
        write (f1, '( "X", I2.2, ".dat" )' )id

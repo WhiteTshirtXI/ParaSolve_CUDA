@@ -15,15 +15,15 @@ subroutine Solver_evolve
 
     implicit none
 
-    integer :: tstep,p_counter
+    integer*4 :: tstep,p_counter
 
-    real, dimension(Nxb+1,Nyb+1) :: uu
-    real, dimension(Nxb+1,Nyb+1) :: vv
-    real, dimension(Nxb+1,Nyb+1) :: pp, tt, df, pf, th, cp
+    real*4, dimension(Nxb+1,Nyb+1) :: uu
+    real*4, dimension(Nxb+1,Nyb+1) :: vv
+    real*4, dimension(Nxb+1,Nyb+1) :: pp, tt, df, pf, th, cp
 
-    real, pointer, dimension(:,:) :: u,v
-    real, pointer, dimension(:,:,:) :: cc
-    real :: solnX
+    real*4, pointer, dimension(:,:) :: u,v
+    real*4, pointer, dimension(:,:,:) :: cc
+    real*4 :: solnX
   
     tstep = 0
 

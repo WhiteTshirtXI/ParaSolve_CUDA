@@ -12,11 +12,11 @@ subroutine HeatAD_init()
 
    implicit none
 
-   real,pointer,dimension(:,:) :: T
-   integer :: j,i
-   real :: solnX
-   real :: solnY
-   real :: ycell
+   real*4,pointer,dimension(:,:) :: T
+   integer*4 :: j,i
+   real*4 :: solnX
+   real*4 :: solnY
+   real*4 :: ycell
 
    ht_Pr = 0.7
    ht_Nu = 0.332*(ht_Pr**0.33)/(ins_inRe**0.5)

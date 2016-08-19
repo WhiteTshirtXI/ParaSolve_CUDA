@@ -7,7 +7,7 @@ subroutine IncompNS_init()
    
       implicit none
       
-      real,pointer,dimension(:,:) :: u,v,p
+      real*4,pointer,dimension(:,:) :: u,v,p
 
       p => ph_center(PRES_VAR,:,:)
       u => ph_facex(VELC_VAR,:,:)

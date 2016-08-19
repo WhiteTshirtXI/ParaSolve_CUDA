@@ -12,20 +12,20 @@ subroutine HeatAD_solver(tstep)
 
       implicit none
       
-      integer, intent(in) :: tstep
-      real, pointer, dimension(:,:) :: T,u,v,s,pf,thco,cp
-      real, dimension(Nxb+2,Nyb+2) :: T_old
+      integer*4, intent(in) :: tstep
+      real*4, pointer, dimension(:,:) :: T,u,v,s,pf,thco,cp
+      real*4, dimension(Nxb+2,Nyb+2) :: T_old
 
-      integer :: i,j
+      integer*4 :: i,j
 
-      real :: u_plus, u_mins, v_plus, v_mins, u_conv, v_conv
-      real :: Tx_plus, Tx_mins, Ty_plus, Ty_mins
-      real :: Tij, Tipj, Timj, Tijp, Tijm
-      real :: Txx, Tyy, th, dxp, dxm, dyp, dym
-      real :: alphax_plus, alphax_mins, alphay_plus, alphay_mins, alpha_interface
+      real*4 :: u_plus, u_mins, v_plus, v_mins, u_conv, v_conv
+      real*4 :: Tx_plus, Tx_mins, Ty_plus, Ty_mins
+      real*4 :: Tij, Tipj, Timj, Tijp, Tijm
+      real*4 :: Txx, Tyy, th, dxp, dxm, dyp, dym
+      real*4 :: alphax_plus, alphax_mins, alphay_plus, alphay_mins, alpha_interface
 
-      real :: T_res1
-      real :: Tsat
+      real*4 :: T_res1
+      real*4 :: Tsat
 
       ht_T_res = 0.0
       T_res1 = 0.0

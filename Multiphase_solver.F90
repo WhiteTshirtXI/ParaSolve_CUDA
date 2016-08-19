@@ -10,13 +10,13 @@ subroutine Multiphase_solver(tstep,solnX)
 
     implicit none
 
-    integer, intent(in) :: tstep
+    integer*4, intent(in) :: tstep
     
 
-    real,intent(out) :: solnX
-    real :: ycell
-    real, pointer, dimension(:,:) :: s,pf,thco,cprs
-    integer :: j,i
+    real*4,intent(out) :: solnX
+    real*4 :: ycell
+    real*4, pointer, dimension(:,:) :: s,pf,thco,cprs
+    integer*4 :: j,i
 
     solnX = 0.001-(2*0.066916063714766546815307639566313*&
                     sqrt(((tstep)*dr_dt)*((mph_thco1)/(mph_cp1))))

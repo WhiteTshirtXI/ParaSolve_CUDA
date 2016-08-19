@@ -4,8 +4,8 @@ subroutine IO_display(u_res,v_res,p_res,T_res,p_counter,simtime,maxdiv,mindiv)
 
          implicit none
 
-         real, intent(in) :: u_res,v_res,p_res,simtime,T_res,maxdiv,mindiv
-         integer, intent(in) :: p_counter
+         real*4, intent(in) :: u_res,v_res,p_res,simtime,T_res,maxdiv,mindiv
+         integer*4, intent(in) :: p_counter
 
          print *,"**************PARAMETER DISPLAY***************"
          print *,"Simulation Time         : ",simtime

@@ -10,8 +10,8 @@ module IncompNS_interface
        interface
            subroutine IncompNS_solver(tstep,p_counter)
             implicit none
-            integer, intent(in) :: tstep
-            integer, intent(out) :: p_counter
+            integer*4, intent(in) :: tstep
+            integer*4, intent(out) :: p_counter
            end subroutine IncompNS_solver
        end interface
 

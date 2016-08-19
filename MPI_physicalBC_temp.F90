@@ -8,8 +8,8 @@ subroutine MPI_physicalBC_temp(t_ex)
 
        include "mpif.h"
 
-       real, dimension(Nxb+2,Nyb+2), intent(inout) :: t_ex
-       integer :: status(MPI_STATUS_SIZE)
+       real*4, dimension(Nxb+2,Nyb+2), intent(inout) :: t_ex
+       integer*4 :: status(MPI_STATUS_SIZE)
     
        if ( x_id == 0) then
 

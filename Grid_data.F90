@@ -4,20 +4,20 @@ module Grid_data
 
        implicit none
 
-       real, save :: gr_Lx
-       real, save :: gr_Ly
+       real*4, save :: gr_Lx
+       real*4, save :: gr_Ly
        
-       integer, save :: gr_Nx
-       integer, save :: gr_Ny
+       integer*4, save :: gr_Nx
+       integer*4, save :: gr_Ny
 
-       real, save :: gr_dx
-       real, save :: gr_dy
+       real*4, save :: gr_dx
+       real*4, save :: gr_dy
 
-       real, save, allocatable, dimension(:,:) :: gr_dx_centers,gr_dy_centers
+       real*4, save, allocatable, dimension(:,:) :: gr_dx_centers,gr_dy_centers
 
-       real, save, allocatable, dimension(:,:) :: gr_dx_nodes, gr_dy_nodes
+       real*4, save, allocatable, dimension(:,:) :: gr_dx_nodes, gr_dy_nodes
 
-       real, save, allocatable, dimension(:,:) :: gr_x
-       real, save, allocatable, dimension(:,:) :: gr_y
+       real*4, save, allocatable, dimension(:,:) :: gr_x
+       real*4, save, allocatable, dimension(:,:) :: gr_y
 
 end module Grid_data 

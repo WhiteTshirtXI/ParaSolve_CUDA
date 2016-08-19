@@ -3,10 +3,10 @@ subroutine Multiphase_evolve(s,pf,thco,cprs,thco1,thco2,cp1,cp2)
 #include "Solver.h"
 
     implicit none
-    real,intent(inout),dimension(Nxb+2,Nyb+2) :: s,pf,thco,cprs
-    real,intent(in) :: thco1,thco2,cp1,cp2   
+    real*4,intent(inout),dimension(Nxb+2,Nyb+2) :: s,pf,thco,cprs
+    real*4,intent(in) :: thco1,thco2,cp1,cp2   
 
-    integer :: i,j
+    integer*4 :: i,j
 
     do j=1,Nyb+2
      do i=1,Nxb+2

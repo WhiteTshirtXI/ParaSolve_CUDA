@@ -12,29 +12,29 @@ subroutine IncompNS_solver(tstep,p_counter)
 
        implicit none
 
-       integer, intent(in) :: tstep
+       integer*4, intent(in) :: tstep
 
-       real, dimension(Nxb+2,Nyb+2) :: ut
-       real, dimension(Nxb+2,Nyb+2) :: vt
+       real*4, dimension(Nxb+2,Nyb+2) :: ut
+       real*4, dimension(Nxb+2,Nyb+2) :: vt
 
-       real, dimension(Nxb+2,Nyb+2) :: u_old
-       real, dimension(Nxb+2,Nyb+2) :: v_old
+       real*4, dimension(Nxb+2,Nyb+2) :: u_old
+       real*4, dimension(Nxb+2,Nyb+2) :: v_old
 
-       real, dimension(Nxb,Nyb)   :: C1
-       real, dimension(Nxb,Nyb)   :: G1
-       real, dimension(Nxb,Nyb)   :: D1
+       real*4, dimension(Nxb,Nyb)   :: C1
+       real*4, dimension(Nxb,Nyb)   :: G1
+       real*4, dimension(Nxb,Nyb)   :: D1
 
-       real, dimension(Nxb,Nyb)   :: C2
-       real, dimension(Nxb,Nyb)   :: G2
-       real, dimension(Nxb,Nyb)   :: D2
+       real*4, dimension(Nxb,Nyb)   :: C2
+       real*4, dimension(Nxb,Nyb)   :: G2
+       real*4, dimension(Nxb,Nyb)   :: D2
 
-       real :: u_res1, v_res1, maxdiv, mindiv
+       real*4 :: u_res1, v_res1, maxdiv, mindiv
 
-       real, dimension(Nxb,Nyb) :: p_RHS
-       integer :: i
-       integer, intent(out) :: p_counter
+       real*4, dimension(Nxb,Nyb) :: p_RHS
+       integer*4 :: i
+       integer*4, intent(out) :: p_counter
 
-       real, pointer, dimension(:,:) :: u, v, p
+       real*4, pointer, dimension(:,:) :: u, v, p
 
        p => ph_center(PRES_VAR,:,:)
        u => ph_facex(VELC_VAR,:,:)
@@ -152,19 +152,19 @@ subroutine Convective_U(ut,vt,dx_centers,dy_nodes,C1)
        
       implicit none
 
-      real,dimension(Nxb+2,Nyb+2), intent(in) :: ut
-      real,dimension(Nxb+2,Nyb+2), intent(in) :: vt
+      real*4,dimension(Nxb+2,Nyb+2), intent(in) :: ut
+      real*4,dimension(Nxb+2,Nyb+2), intent(in) :: vt
 
-      real, dimension(Nxb+1,Nyb+1),intent(in) :: dx_centers
-      real, dimension(Nxb+2,Nyb+2),intent(in) :: dy_nodes
+      real*4, dimension(Nxb+1,Nyb+1),intent(in) :: dx_centers
+      real*4, dimension(Nxb+2,Nyb+2),intent(in) :: dy_nodes
 
-      real, dimension(Nxb,Nyb) :: ue
-      real, dimension(Nxb,Nyb) :: uw
-      real, dimension(Nxb,Nyb) :: us
-      real, dimension(Nxb,Nyb) :: un
-      real, dimension(Nxb,Nyb) :: vs
-      real, dimension(Nxb,Nyb) :: vn
-      real, dimension(Nxb,Nyb), intent(out) :: C1
+      real*4, dimension(Nxb,Nyb) :: ue
+      real*4, dimension(Nxb,Nyb) :: uw
+      real*4, dimension(Nxb,Nyb) :: us
+      real*4, dimension(Nxb,Nyb) :: un
+      real*4, dimension(Nxb,Nyb) :: vs
+      real*4, dimension(Nxb,Nyb) :: vn
+      real*4, dimension(Nxb,Nyb), intent(out) :: C1
 
       ue = (ut(2:Nxb+1,2:Nyb+1)+ut(3:Nxb+2,2:Nyb+1))/2
       uw = (ut(2:Nxb+1,2:Nyb+1)+ut(1:Nxb,2:Nyb+1))/2
@@ -184,14 +184,14 @@ subroutine Convective_V(ut,vt,dx_nodes,dy_centers,C2)
 
       implicit none
 
-      real,dimension(Nxb+2,Nyb+2), intent(in) :: ut
-      real,dimension(Nxb+2,Nyb+2), intent(in) :: vt
+      real*4,dimension(Nxb+2,Nyb+2), intent(in) :: ut
+      real*4,dimension(Nxb+2,Nyb+2), intent(in) :: vt
 
-      real, dimension(Nxb+2,Nyb+2),intent(in) :: dx_nodes
-      real, dimension(Nxb+1,Nyb+1),intent(in) :: dy_centers
+      real*4, dimension(Nxb+2,Nyb+2),intent(in) :: dx_nodes
+      real*4, dimension(Nxb+1,Nyb+1),intent(in) :: dy_centers
 
-      real, dimension(Nxb,Nyb) :: vn, vs, ve, vw, ue, uw
-      real, dimension(Nxb,Nyb), intent(out) :: C2
+      real*4, dimension(Nxb,Nyb) :: vn, vs, ve, vw, ue, uw
+      real*4, dimension(Nxb,Nyb), intent(out) :: C2
 
       vs = (vt(2:Nxb+1,2:Nyb+1)+vt(2:Nxb+1,1:Nyb))/2
       vn = (vt(2:Nxb+1,2:Nyb+1)+vt(2:Nxb+1,3:Nyb+2))/2
@@ -211,20 +211,20 @@ subroutine Diffusive_U(ut,dx_nodes,dy_centers,inRe,D1)
 
       implicit none
 
-      real,dimension(Nxb+2,Nyb+2), intent(in) :: ut
+      real*4,dimension(Nxb+2,Nyb+2), intent(in) :: ut
 
-      real, dimension(Nxb+2,Nyb+2),intent(in) :: dx_nodes
-      real, dimension(Nxb+1,Nyb+1),intent(in) :: dy_centers
+      real*4, dimension(Nxb+2,Nyb+2),intent(in) :: dx_nodes
+      real*4, dimension(Nxb+1,Nyb+1),intent(in) :: dy_centers
 
-      real, intent(in) :: inRe
+      real*4, intent(in) :: inRe
 
-      real, dimension(Nxb,Nyb) :: uP
-      real, dimension(Nxb,Nyb) :: uN
-      real, dimension(Nxb,Nyb) :: uS
-      real, dimension(Nxb,Nyb) :: uE
-      real, dimension(Nxb,Nyb) :: uW
+      real*4, dimension(Nxb,Nyb) :: uP
+      real*4, dimension(Nxb,Nyb) :: uN
+      real*4, dimension(Nxb,Nyb) :: uS
+      real*4, dimension(Nxb,Nyb) :: uE
+      real*4, dimension(Nxb,Nyb) :: uW
 
-      real, dimension(Nxb,Nyb), intent(out) :: D1
+      real*4, dimension(Nxb,Nyb), intent(out) :: D1
 
       uP = ut(2:Nxb+1,2:Nyb+1)
       uE = ut(3:Nxb+2,2:Nyb+1)
@@ -247,16 +247,16 @@ subroutine Diffusive_V(vt,dx_centers,dy_nodes,inRe,D2)
 
       implicit none
 
-      real,dimension(Nxb+2,Nyb+2), intent(in) :: vt
+      real*4,dimension(Nxb+2,Nyb+2), intent(in) :: vt
 
-      real, dimension(Nxb+1,Nyb+1),intent(in) :: dx_centers
-      real, dimension(Nxb+2,Nyb+2),intent(in) :: dy_nodes
+      real*4, dimension(Nxb+1,Nyb+1),intent(in) :: dx_centers
+      real*4, dimension(Nxb+2,Nyb+2),intent(in) :: dy_nodes
 
-      real, intent(in) :: inRe
+      real*4, intent(in) :: inRe
 
-      real, dimension(Nxb,Nyb) :: vP,vE,vW,vN,vS
+      real*4, dimension(Nxb,Nyb) :: vP,vE,vW,vN,vS
 
-      real, dimension(Nxb,Nyb), intent(out) :: D2
+      real*4, dimension(Nxb,Nyb), intent(out) :: D2
 
       vP = vt(2:Nxb+1,2:Nyb+1)
       vE = vt(3:Nxb+2,2:Nyb+1)

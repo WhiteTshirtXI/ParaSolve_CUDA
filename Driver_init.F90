@@ -6,7 +6,7 @@ subroutine Driver_init()
 
       implicit none
       
-      real :: dt_sig, dt_cfl
+      real*4 :: dt_sig, dt_cfl
 
       dr_t  = 200
 

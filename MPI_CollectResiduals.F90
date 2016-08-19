@@ -6,8 +6,8 @@ subroutine MPI_CollectResiduals(res,res1)
 
       include "mpif.h"
       
-      real, intent(inout) :: res,res1
-      integer :: status(MPI_STATUS_SIZE)
+      real*4, intent(inout) :: res,res1
+      integer*4 :: status(MPI_STATUS_SIZE)
       
       call MPI_ALLREDUCE(res,res1,1,MPI_REAL,MPI_SUM,solver_comm,ierr)
 
