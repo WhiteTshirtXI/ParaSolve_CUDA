@@ -5,8 +5,8 @@
 #include <cuda_runtime.h>
 #include "Solver.h"
 
-#define BLOCKS 2
-#define THREADS 10
+#define BLOCKS 1
+#define THREADS 20
 
 // poisson solver
 
@@ -15,16 +15,19 @@ __global__ void solve_poisson(float ps[Nxb+2][Nyb+2],float ps_old[Nxb+2][Nyb+2],
 {
    int i,j;
 
-   i = (blockIdx.x * blockDim.x) + threadIdx.x + 1;
-   j = (blockIdx.y * blockDim.y) + threadIdx.y + 1;
+   j = (blockIdx.x * blockDim.x) + threadIdx.x;
+   i = (blockIdx.y * blockDim.y) + threadIdx.y;
 
-   if(i>=1 && i<=Nxb && j>=1 && j<=Nyb) 
+  if(i>=1 && i<=Nxb && j>=1 && j<=Nyb) 
+
   {
-   ps[i][j]=((ps_old[i][j+1]/(gr_dy_centers[i][j]*gr_dy_nodes[i][j]))+(ps_old[i][j-1]/(gr_dy_nodes[i][j]*gr_dy_centers[i-1][j-1]))
-            +(ps_old[i+1][j]/(gr_dx_centers[i][j]*gr_dx_nodes[i][j]))+(ps_old[i-1][j]/(gr_dx_nodes[i][j]*gr_dx_centers[i-1][j-1]))
+
+   ps[i][j]=((ps_old[i][j+1]/(gr_dy_centers[i][j]*gr_dy_nodes[i][j]))+(ps[i][j-1]/(gr_dy_nodes[i][j]*gr_dy_centers[i-1][j-1]))
+            +(ps_old[i+1][j]/(gr_dx_centers[i][j]*gr_dx_nodes[i][j]))+(ps[i-1][j]/(gr_dx_nodes[i][j]*gr_dx_centers[i-1][j-1]))
            +ps_RHS[i-1][j-1])
            *(1/((1/(gr_dx_nodes[i][j]*gr_dx_centers[i-1][j-1]))+(1/(gr_dy_nodes[i][j]*gr_dy_centers[i-1][j-1]))+
                 (1/(gr_dx_nodes[i][j]*gr_dx_centers[i][j]))+(1/(gr_dy_nodes[i][j]*gr_dy_centers[i][j]))));
+
    }
    
 }
