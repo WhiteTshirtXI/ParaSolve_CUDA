@@ -3,18 +3,20 @@ MPI_PATH = /opt/pgi/linux86-64/2016/mpi/openmpi
 
 MPIFF = $(MPI_PATH)/bin/mpif90
 
-#FFLAGS = -fopenmp -c
-FFLAGS = -Mcuda -mp -c
-
-#EXEFLAGS = -fopenmp -o
-#EXEFLAGS = -L/$(CUDA_LIB)/ -fopenmp -lcuda -lcudart -lgcc -o
-EXEFLAGS = -Mcuda -mp -o
+LIB_PATH = /opt/pgi/linux86-64/2016/cuda/8.0/lib64
 
 CUDA_PATH = /usr/local/cuda-7.0
 NVCC = $(CUDA_PATH)/bin/nvcc
 CUDA_LIB = $(CUDA_PATH)/lib64
 CUDA_INC = $(CUDA_PATH)/include
 CCFLAGS = -c
+
+#FFLAGS = -fopenmp -c
+FFLAGS = -Mcuda -mp -c
+
+#EXEFLAGS = -fopenmp -o
+#EXEFLAGS = -L$(CUDA_LIB)/ -fopenmp -lcuda -lcudart -lgcc -o
+EXEFLAGS = -L$(LIB_PATH)/ -lcudart -Mcuda -mp -o
 
 EXE = Solver
 
