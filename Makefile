@@ -54,4 +54,4 @@ $(EXE): $(ALL_OBJS)
 	$(NVCC) $(CCFLAGS) $<
 
 clean:
-	rm *.dat *.mod *.o $(EXE)
+	rm -f *.dat *.mod *.o $(EXE)
